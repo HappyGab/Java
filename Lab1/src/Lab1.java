@@ -1,3 +1,16 @@
+/*
+ * Gabriel Koscielniak
+ * #041062261
+ * 
+ * CST8132
+ * Professor Daniel Cormier
+ * 
+ * Lab1
+ * 
+ * Prints squares with coordinates
+ */
+
+
 
 public class Lab1 {
 
