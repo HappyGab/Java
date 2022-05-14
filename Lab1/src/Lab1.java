@@ -10,7 +10,7 @@
  * Prints squares with coordinates
  */
 
-
+//ayo
 
 public class Lab1 {
 
