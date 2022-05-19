@@ -32,7 +32,10 @@ public class Lab1 {
 
 		//while loop variables
 		//square coordinates comes form these
+		
+		/* for while loop solution
 		int i2 = 0;
+		*/
 		int i3 = 0;
 
 		//default text blocks to build the squares
@@ -46,7 +49,12 @@ public class Lab1 {
 
 		//outer loop
 		//determines how many rows there are
+		
+		/* for while loop solution 
 		while(i2 < x) {
+		*/
+		
+		for(int i2 = 0; i2 < x; i2++) {
 			
 			//inner loop
 			//builds rows of squares
@@ -72,7 +80,10 @@ public class Lab1 {
 			//resets and prepares variables for the next loop
 			System.out.println(res);
 			
+			/* for while loop solution 
 			i2++;
+			*/
+			
 			i3 = 0;
 			middle = "";
 			top = "+";
@@ -99,7 +110,11 @@ public class Lab1 {
 
 		//while loop variables
 		//square coordinates comes form these
+		
+		/* for while loop solution 
 		int i2 = 0;
+		*/
+		
 		int i3 = 0;
 
 		//default text blocks to build the squares
@@ -113,8 +128,12 @@ public class Lab1 {
 
 		//outer loop
 		//determines how many rows there are
+		
+		/* for while loop solution 
 		while(i2 < x) {
-
+		*/
+		
+		for(int i2 = 0; i2 < x; i2++) {
 			//inner loop
 			//builds rows of squares
 			while(i3 < y){
@@ -139,7 +158,10 @@ public class Lab1 {
 			//resets and prepares variables for the next loop
 			System.out.println(res);
 			
+			/* for while loop solution 
 			i2++;
+			*/
+			
 			i3 = 0;
 			middle = "";
 			top = "+";
