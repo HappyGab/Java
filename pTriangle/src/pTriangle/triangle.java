@@ -24,13 +24,6 @@ public class triangle {
 		this.arr = arr;
 	}	 
 
-	public void printarr() {
-
-		for (int i2 = 0; i2 < arr.length; i2++) {
-			System.out.print(arr[i2]);
-		}
-	}
-
 	public int[] getarr() {
 
 		return arr;
