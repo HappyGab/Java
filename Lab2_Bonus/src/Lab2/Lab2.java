@@ -6,7 +6,7 @@
  * CST8132
  * Professor Daniel Cormier
  * 
- * Lab1
+ * Lab 2
  * 
  * Prints squares with elements of the random array
  * 
@@ -58,12 +58,7 @@ public class Lab2 {
 		String middle = "";
 		String middle1 = "| ";
 
-		//outer loop
-		//determines how many rows there are
-
-		/* for while loop solution 
-		while(i2 < x) {
-		 */
+		//find the longest row of the array
 		int num = 0;
 		
 		for(int i2 = 0; i2 < chararray.length; i2++) {
@@ -72,6 +67,14 @@ public class Lab2 {
 				num = chararray[i2].length;
 			}
 		}
+		
+		//outer loop
+		//determines how many rows there are
+		
+		/* for while loop solution 
+		while(i2 < x) {
+		*/
+		
 		for(int i2 = 0; i2 < chararray.length; i2++) {
 			//inner loop
 			//builds rows of squares
@@ -81,7 +84,10 @@ public class Lab2 {
 
 				bar = bar + bar1;
 				
+				//checks of there needs to be some empty squares in the grid
 				if (i3 < chararray[i2].length) {
+					
+					//builds the squares if they need a letter inside
 					if(i3 == chararray[i2].length-1) {
 						middle = middle + middle1 + " " + chararray[i2][i3]+ "  |";
 					}
@@ -89,9 +95,7 @@ public class Lab2 {
 						middle = middle + middle1 + " " +  chararray[i2][i3] + "  ";
 					}
 
-					//res = top + "\n" + bar + "\n" + middle + "\n" + bar + "\n" + top;
-
-					//i3++;
+				//builds squares if they are empty
 				} else {
 					
 					middle = middle + "     |";
@@ -101,8 +105,7 @@ public class Lab2 {
 				i3++;
 			}
 
-			//prints the row built ^
-			//resets and prepares variables for the next loop
+			//prints the row built if the row is not empty
 			if (chararray[i2].length != 0) {
 				System.out.println(res);
 			}
@@ -111,6 +114,7 @@ public class Lab2 {
 			i2++;
 			 */
 
+			//resets all variables for the next loop
 			i3 = 0;
 			middle = "";
 			top = "+";
