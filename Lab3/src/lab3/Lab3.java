@@ -69,8 +69,7 @@ public class Lab3 {
 					}
 				} else {
 
-					Empty e = new Empty();
-					board[i][i2] = e;
+					board[i][i2] = null;
 				}
 			}
 		}
@@ -78,69 +77,127 @@ public class Lab3 {
 		// prints the chess board
 		l3.printBoard(board);
 
+		//keyboard input reader
 		Scanner keyboard = new Scanner(System.in);
 
+		//looping variable
+		//true = keep playing, false = stop playing
 		boolean keepPlay = true;
 
-		System.out.println("1. Move a piece. \n2. Check a piece for valid moves. \n3. Redraw the board. \nQ. Quit.");
+		while (keepPlay == true) {
 
- 		while (keepPlay == true) {
+			//prints the menu
+			System.out.println("1. Move a piece. \n2. Check a piece for valid moves. \n3. Redraw the board. \nQ. Quit.");
 
+			//default values for the row and column
 			int row = 0;
 			int col = 0;
 			int newRow = 0;
 			int newCol = 0;
 
+			//player inputs what he wants to do
 			String playerIn = keyboard.nextLine();
 
+			//player inputs q or Q, looping variable becomes false
 			if (playerIn.equals("Q") || playerIn.equals("q")) {
+
 				keepPlay = false;
+
+				//player inputs 1, moving a piece options come up	
 			} else if (playerIn.equals("1")) {
 
+				//player inputs coords of the piece he wants to move
 				System.out.println("\nWhat piece do you want to move?\n");
 				System.out.println("Enter row number:");
 				String rowStr = keyboard.nextLine();
-				System.out.println("Enter row number:");
+				System.out.println("Enter column number:");
 				String colStr = keyboard.nextLine();
 
 				row = Integer.parseInt(rowStr) - 1;
 				col = Integer.parseInt(colStr) - 1;
 
-				if (board[row][col].getSymbol().equals(" ")) {
+				//checks if the square exists and is empty
+				if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
 
-					System.out.println("This space is empty\n");
-				} else {
+					if (board[row][col] == null) {
 
-					System.out.println("\nWhere do you want to move the " + board[row][col].getName() + "?\n");
-					System.out.println("Enter row number:");
-					newRow = keyboard.nextInt() - 1;
-					System.out.println("Enter row number:");
-					newCol = keyboard.nextInt() - 1;
+						System.out.println("This space is empty\n");
+					} else {
 
-					board[newRow][newCol] = board[row][col];
-					Empty e = new Empty();
-					board[row][col] = e;
-					System.out.println("");
+						/**************************************************************************************
+						 * bug here 
+						 * if this block of code does something, the while loop (line 87) will
+						 * loop once more, but ignore all interactive stuff and print some things
+						 * I have no clue why 
+						 * Everything works fine after that
+						 * ************************************************************************************
+						 */
+
+						//asks the player where he wants to move his piece
+						System.out.println("\nWhere do you want to move the " + board[row][col].getName() + "?\n");
+						System.out.println("Enter row number:");
+						newRow = keyboard.nextInt() - 1;
+						System.out.println("Enter column number:");
+						newCol = keyboard.nextInt() - 1;
+
+						//checks if the coords are on the board, moves the piece if yes
+						if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
+							board[newRow][newCol] = board[row][col];
+							board[row][col] = null;
+						}
+						else {
+							System.out.println("invalid input, this square is not on the board");
+						}
+						System.out.println("");
+
+					}
 				}
+				else {
+					System.out.println("invalid input, this square is not on the board\n");
+				}
+
+				//player inputs 2, asks what piece he wants to check the valid moves of
+			} else if (playerIn.equals("2")) {
+				System.out.println("\nCheck valid moves for what peice?\n");
+				System.out.println("Enter row number:");
+				String rowStr = keyboard.nextLine();
+				System.out.println("Enter column number:");
+				String colStr = keyboard.nextLine();
+
+				row = Integer.parseInt(rowStr) - 1;
+				col = Integer.parseInt(colStr) - 1;
+
+				//checks if the coords are on the board, check the moves if yes
+				if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
+					if (board[row][col] == null) {
+
+						System.out.println("This space is empty\n");
+					} else {
+						board[row][col].getValidMoves(row + 1, col + 1);
+					}
+				}
+				else {
+					System.out.println("invalid input, this square is not on the board\n");
+				}
+
+				//player inputs 3, prints the updated chess board
 			} else if (playerIn.equals("3")) {
 				l3.printBoard(board);
+
+				//player inputs something invalid
+			} else {
+				System.out.println("Invalid input\n");
 			}
-			playerIn = "";
-			System.out.println("1. Move a piece. \n2. Check a piece for valid moves. \n3. Redraw the board. \nQ. Quit.");
 		}
 	}
 
+	//prints the chess board
 	public void printBoard(Piece board[][]) {
 
 		// prints top coords
 		System.out.println("    1     2     3     4     5     6     7     8");
 
 		// while loop variables
-		// square coordinates comes form these
-
-		/*
-		 * for while loop solution int i2 = 0;
-		 */
 		int i3 = 0;
 
 		// default text blocks to build the squares
@@ -153,16 +210,10 @@ public class Lab3 {
 		String middle1 = "| ";
 
 		// outer loop
-		// determines how many rows there are
-
-		/*
-		 * for while loop solution while(i2 < x) {
-		 */
-
 		for (int i2 = 0; i2 < 8; i2++) {
 
 			// inner loop
-			// builds rows of squares
+			// builds rows of squares and their piece, if there is one
 			while (i3 < 8) {
 
 				top = top + top1;
@@ -170,11 +221,23 @@ public class Lab3 {
 				bar = bar + bar1;
 
 				if (i3 == 0) {
-					middle = i2 + 1 + " " + middle1 + " " + board[i2][i3].getSymbol() + "  ";
+					if (board[i2][i3] != null) {
+						middle = i2 + 1 + " " + middle1 + " " + board[i2][i3].getSymbol() + "  ";
+					} else {
+						middle = i2 + 1 + " " + middle1 + " " + "   ";
+					}
 				} else if (i3 == 8 - 1) {
-					middle = middle + middle1 + " " + board[i2][i3].getSymbol() + "  |";
+					if (board[i2][i3] != null) {
+						middle = middle + middle1 + " " + board[i2][i3].getSymbol() + "  |";
+					} else {
+						middle = middle + middle1 + "    |";
+					}
 				} else {
-					middle = middle + middle1 + " " + board[i2][i3].getSymbol() + "  ";
+					if (board[i2][i3] != null) {
+						middle = middle + middle1 + " " + board[i2][i3].getSymbol() + "  ";
+					} else {
+						middle = middle + middle1 + "    ";
+					}
 				}
 
 				res = top + "\n" + bar + "\n" + middle + "\n" + bar;
@@ -185,10 +248,6 @@ public class Lab3 {
 			// prints the row built ^
 			// resets and prepares variables for the next loop
 			System.out.println(res);
-
-			/*
-			 * for while loop solution i2++;
-			 */
 
 			i3 = 0;
 			middle = "  ";
