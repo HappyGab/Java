@@ -1,3 +1,16 @@
+/*
+ * Gabriel Koscielniak
+ * #041062261
+ * 
+ * CST8132
+ * Professor Daniel Cormier
+ * 
+ * Lab 3
+ * 
+ * Playable chess game with no rules implemented
+ * 
+ */
+
 package lab3;
 
 import java.util.Scanner;
@@ -77,36 +90,37 @@ public class Lab3 {
 		// prints the chess board
 		l3.printBoard(board);
 
-		//keyboard input reader
+		// keyboard input reader
 		Scanner keyboard = new Scanner(System.in);
 
-		//looping variable
-		//true = keep playing, false = stop playing
+		// looping variable
+		// true = keep playing, false = stop playing
 		boolean keepPlay = true;
 
 		while (keepPlay == true) {
 
-			//prints the menu
-			System.out.println("1. Move a piece. \n2. Check a piece for valid moves. \n3. Redraw the board. \nQ. Quit.");
+			// prints the menu
+			System.out
+					.println("1. Move a piece. \n2. Check a piece for valid moves. \n3. Redraw the board. \nQ. Quit.");
 
-			//default values for the row and column
+			// default values for the row and column
 			int row = 0;
 			int col = 0;
 			int newRow = 0;
 			int newCol = 0;
 
-			//player inputs what he wants to do
+			// player inputs what he wants to do
 			String playerIn = keyboard.nextLine();
 
-			//player inputs q or Q, looping variable becomes false
+			// player inputs q or Q, looping variable becomes false
 			if (playerIn.equals("Q") || playerIn.equals("q")) {
 
 				keepPlay = false;
 
-				//player inputs 1, moving a piece options come up	
+				// player inputs 1, moving a piece options come up
 			} else if (playerIn.equals("1")) {
 
-				//player inputs coords of the piece he wants to move
+				// player inputs coords of the piece he wants to move
 				System.out.println("\nWhat piece do you want to move?\n");
 				System.out.println("Enter row number:");
 				String rowStr = keyboard.nextLine();
@@ -116,7 +130,7 @@ public class Lab3 {
 				row = Integer.parseInt(rowStr) - 1;
 				col = Integer.parseInt(colStr) - 1;
 
-				//checks if the square exists and is empty
+				// checks if the square exists and is empty
 				if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
 
 					if (board[row][col] == null) {
@@ -126,37 +140,35 @@ public class Lab3 {
 
 						/**************************************************************************************
 						 * bug here 
-						 * if this block of code does something, the while loop (line 87) will
-						 * loop once more, but ignore all interactive stuff and print some things
+						 * if this block of code does something, the while loop (line 100) will
+						 * loop once more, but ignore all interactive stuff and print some things 
 						 * I have no clue why 
 						 * Everything works fine after that
 						 * ************************************************************************************
 						 */
 
-						//asks the player where he wants to move his piece
+						// asks the player where he wants to move his piece
 						System.out.println("\nWhere do you want to move the " + board[row][col].getName() + "?\n");
 						System.out.println("Enter row number:");
 						newRow = keyboard.nextInt() - 1;
 						System.out.println("Enter column number:");
 						newCol = keyboard.nextInt() - 1;
 
-						//checks if the coords are on the board, moves the piece if yes
+						// checks if the coords are on the board, moves the piece if yes
 						if (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7) {
 							board[newRow][newCol] = board[row][col];
 							board[row][col] = null;
-						}
-						else {
+						} else {
 							System.out.println("invalid input, this square is not on the board");
 						}
 						System.out.println("");
 
 					}
-				}
-				else {
+				} else {
 					System.out.println("invalid input, this square is not on the board\n");
 				}
 
-				//player inputs 2, asks what piece he wants to check the valid moves of
+				// player inputs 2, asks what piece he wants to check the valid moves of
 			} else if (playerIn.equals("2")) {
 				System.out.println("\nCheck valid moves for what peice?\n");
 				System.out.println("Enter row number:");
@@ -167,7 +179,7 @@ public class Lab3 {
 				row = Integer.parseInt(rowStr) - 1;
 				col = Integer.parseInt(colStr) - 1;
 
-				//checks if the coords are on the board, check the moves if yes
+				// checks if the coords are on the board, check the moves if yes
 				if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
 					if (board[row][col] == null) {
 
@@ -175,23 +187,22 @@ public class Lab3 {
 					} else {
 						board[row][col].getValidMoves(row + 1, col + 1);
 					}
-				}
-				else {
+				} else {
 					System.out.println("invalid input, this square is not on the board\n");
 				}
 
-				//player inputs 3, prints the updated chess board
+				// player inputs 3, prints the updated chess board
 			} else if (playerIn.equals("3")) {
 				l3.printBoard(board);
 
-				//player inputs something invalid
+				// player inputs something invalid
 			} else {
 				System.out.println("Invalid input\n");
 			}
 		}
 	}
 
-	//prints the chess board
+	// prints the chess board
 	public void printBoard(Piece board[][]) {
 
 		// prints top coords
