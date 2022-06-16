@@ -161,6 +161,7 @@ public class Lab3 {
 						} else {
 							System.out.println("invalid input, this square is not on the board");
 						}
+						String temp = keyboard.nextLine();
 						System.out.println("");
 
 					}
@@ -206,7 +207,7 @@ public class Lab3 {
 	public void printBoard(Piece board[][]) {
 
 		// prints top coords
-		System.out.println("    1     2     3     4     5     6     7     8");
+		System.out.println("     1     2     3     4     5     6     7     8");
 
 		// while loop variables
 		int i3 = 0;
