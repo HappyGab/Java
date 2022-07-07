@@ -97,6 +97,7 @@ public class Lab3 {
 		// true = keep playing, false = stop playing
 		boolean keepPlay = true;
 
+		
 		while (keepPlay == true) {
 
 			// prints the menu
