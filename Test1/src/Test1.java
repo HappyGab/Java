@@ -7,12 +7,10 @@ public class Test1 {
 	 */
 	public static void main(String[] args) {
 
-		boolean isOkay = true;
-
-		if (isOkay) System.out.println ("Statement #1");
-
-		else System.out.println ("Statement #2");
+		for(int i = 5; i < 12; i++) {
+			
+			System.out.println(i%4);
+		}
 	}
-	
 	//test
 }
