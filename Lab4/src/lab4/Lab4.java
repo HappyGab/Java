@@ -1,3 +1,12 @@
+/*
+ * 
+ * Gabriel Koscielniak
+ * 300170166
+ * 
+ * Lab 4
+ * CST8132 
+ * 
+ */
 package lab4;
 
 import java.util.ArrayList;
@@ -14,8 +23,10 @@ import java.util.Scanner;
  */
 public class Lab4 {
 
+	//the arraylist of cards for the deck
 	private ArrayList<Card> deck = new ArrayList<Card>();
 
+	//the players
 	private Player p1 = new Player("Player 1");
 	private Player p2 = new Player("Player 2");
 	private Player p3 = new Player("Player 3");
@@ -24,15 +35,16 @@ public class Lab4 {
 	/**
 	 * This method has a loop that runs the game for as long as the user does not instruct to quit
 	 * 
-	 * @param args
-	 * @return void
+	 * @param args : nothing
 	 */
 	public static void main(String[] args) {
 
 		Lab4 l4 = new Lab4();
 
+		//changes the players names to the inputted values
 		l4.namePlayers();
 
+		//loop to keep playing matches
 		boolean playAgain = true;
 
 		while (playAgain == true) {
@@ -41,48 +53,63 @@ public class Lab4 {
 
 			Scanner keyboard = new Scanner(System.in);
 
+			//round number
 			int round = 0;
 
+			//chooses who plays first
 			Random rng = new Random();
 			int rng1 = rng.nextInt(4);
 			int lastWinner = rng1;
 
+			//loop to play keep playing the rounds
 			Boolean keepPlay = true;
 
 			while (keepPlay == true) {
 
 				round = round + 1;
 
+				//plays the game while players have cards in their hands
 				if (round < 13) {
 					lastWinner = l4.playRound(round, lastWinner);
 
 					System.out.println("\nEnter \"q\" to quit, anything else to play another round");
 					String keepPlayInput = keyboard.nextLine();
 
+					//if user wants to end playing the rounds early
 					if (keepPlayInput.equals("q")) {
 						System.out.println("\n" + l4.Champion());
 						keepPlay = false;
 
 						System.out.println("\nEnter \"y\" to play another match, anything else to quit");
 						String playAgainInput = keyboard.nextLine();
+						
+						//if the user want to play another match
 						if (playAgainInput.equals("y")) {
 							playAgain = true;
-						} else {
+						} 
+						//if the user does not want to play another match
+						else {
 							System.out.println("Thank you for playing! \nMade by Gabriel Koscielniak");
 							playAgain = false;
 						}
 					}
-				} else if (round == 13) {
+				} 
+				//when the game gets tho the final round
+				else if (round == 13) {
 					lastWinner = l4.playRound(round, lastWinner);
 					System.out.println("\n" + l4.Champion());
 					keepPlay = false;
 
 					System.out.println("\nEnter \"y\" to play another match, anything else to quit");
 					String playAgainInput = keyboard.nextLine();
+					
+					//if the user wants to play another match
 					if (playAgainInput.equals("y")) {
 
 						playAgain = true;
-					} else {
+					} 
+					//if the user does not want to play another match
+					else {
 						System.out.println("\nThank you for playing! \nMade by Gabriel Koscielniak");
 						playAgain = false;
 					}
@@ -94,10 +121,10 @@ public class Lab4 {
 
 	/**
 	 * This method is to name the players at the start of the game
-	 * @return void
 	 */
 	public void namePlayers() {
 
+		//user inputs for the players names
 		Scanner keyboard = new Scanner(System.in);
 
 		System.out.println("Welcome to Auto-Cards! \n\nLet's name the four players");
@@ -117,16 +144,17 @@ public class Lab4 {
 
 	/**
 	 * This method resets the players, the deck, and then deals the cards to the players
-	 * @return void
 	 */
 	public void startGame() {
 
+		//resets everything
 		deck.clear();
 		p1.reset();
 		p2.reset();
 		p3.reset();
 		p4.reset();
 
+		//creates the deck
 		for (int i = 0; i < 4; i++) {
 			for (int i2 = 0; i2 < 13; i2++) {
 
@@ -137,7 +165,8 @@ public class Lab4 {
 		}
 
 		Random rng = new Random();
-
+		
+		//deals the cards
 		for (int i = 0; i < 13; i++) {
 
 			int rng1 = rng.nextInt(deck.size());
@@ -166,6 +195,7 @@ public class Lab4 {
 	 */
 	public int playRound(int round, int lastWinner) {
 
+		//prints details of the players
 		System.out.println("Round: " + round + "\n");
 
 		System.out.println(p1.getName() + "(" + p1.getScore() + " hands won) :" + p1.getHand());
@@ -176,6 +206,7 @@ public class Lab4 {
 
 		int nextPlayer = 0;
 
+		//plays the current round in correct order
 		for (int i = lastWinner; i < lastWinner + 4; i++) {
 
 			nextPlayer = i % 4;
@@ -203,6 +234,7 @@ public class Lab4 {
 
 		System.out.println("");
 
+		//chooses a random winner
 		Random rng = new Random();
 		int winner = rng.nextInt(4);
 
@@ -235,6 +267,7 @@ public class Lab4 {
 
 		String res = "";
 
+		//checks who won
 		for (int i = 1; i <= 3; i++) {
 
 			if (winner.getScore() > playerList[i].getScore()) {
@@ -247,6 +280,7 @@ public class Lab4 {
 
 		String tiedPlayers = winner.getName();
 
+		//checks if there are ties
 		for (int i = 1; i <= 3; i++) {
 
 			if (winner.getName().equals(playerList[i].getName())) {
