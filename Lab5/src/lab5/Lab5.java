@@ -1,11 +1,12 @@
 package lab5;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lab5 {
 
 	static RecipeManager rM = new RecipeManager();
+
+	static Scanner keyboard = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 
@@ -16,27 +17,37 @@ public class Lab5 {
 		int playerIn = 0;
 		
 		while (quit == false) {
+			
 
+			Lab5.printMenu();
+			
 			try {
-				Lab5.printMenu();
-				Scanner keyboard = new Scanner(System.in);
-
 				playerIn = keyboard.nextInt();
 			}
 			catch ( java.util.InputMismatchException e) {
 				
+				String s = keyboard.nextLine();
 				System.out.println("\nPlease enter a valid input. \nValid inputs are numbers form 0 to 4");
 			}
 			
 			if (playerIn == 0) {
-				//nothing happens, have a good day :D
+				//nothing happens here, have a good day :D
 			}
 			else if (playerIn == 1) {
 				rM.printRlist();
 			}
 			else if (playerIn == 2) {
-				
+				Lab5.createSlist();
 			}
+			else if (playerIn == 3) {
+				rM.printSlist();
+			}
+			else if (playerIn == 4) {
+				System.out.println("\nMade by Gabriel Koscielniak");
+				quit = true;
+			}
+			
+			
 		}
 	}
 
@@ -54,29 +65,42 @@ public class Lab5 {
 	
 	public void createSlist() {
 		
-		Scanner keyboard = new Scanner(System.in);
 		int PlayerInBread = 0;
 		int PlayerInNum = 0;
 		
-		try {
-			System.out.print("\nWhich bread would you like?");
-			PlayerInBread = keyboard.nextInt();	
-		}
-		catch ( java.util.InputMismatchException e) {
-			
-			System.out.println("\nPlease enter a valid input. \nValid inputs are numbers form 1 to 7");
-		}
+		boolean loop = false;
 		
-		try {
-			System.out.print("\nHow many would you like?");
-			PlayerInNum = keyboard.nextInt();	
-		}
-		catch ( java.util.InputMismatchException e) {
+		do{
+			try {
+				loop = false;
+				System.out.print("\nWhich bread would you like? ");
+				PlayerInBread = keyboard.nextInt();	
+			}
+			catch ( java.util.InputMismatchException e) {
 			
-			System.out.println("\nPlease enter a valid input. \nValid inputs are numbers");
+				System.out.println("\nPlease enter a valid input. \nValid inputs are numbers form 1 to 7");
+				String s = keyboard.nextLine();
+				loop = true;
+			}
 		}
+		while (loop == true);
 		
-		keyboard.close();
+		boolean loop2 = false;
+		
+		do {
+			try {
+				loop2 = false;
+				System.out.print("\nHow many would you like? ");
+				PlayerInNum = keyboard.nextInt();	
+			}
+			catch ( java.util.InputMismatchException e) {
+				
+				System.out.println("\nPlease enter a valid input. \nValid inputs are numbers");
+				String s = keyboard.nextLine();
+				loop2 = true;
+			}
+		}
+		while (loop2 == true);
 		
 		rM.addToShoppingList(PlayerInBread, PlayerInNum);
 	

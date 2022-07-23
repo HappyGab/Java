@@ -52,6 +52,11 @@ public class Recipe {
 		return breadName;
 	}
 	
+	public int getBreadNum() {
+		
+		return breadNum;
+	}
+	
 	public float getYeast() {
 		
 		return yeast;
