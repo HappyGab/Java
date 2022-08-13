@@ -13,7 +13,11 @@
 
 package lab6;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
  /**
   * This class manages the list of recipes to be added to the shopping list
   * 
@@ -22,22 +26,48 @@ import java.util.ArrayList;
   * @since 1.8
   */
 public class RecipeManager {
-
+	
 	//contains the shopping list
 	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-
+		
+	private static Scanner rL;
+	private static Scanner sL;
+	
+	public static void readFile() {
+		
+		try {
+			rL = new Scanner(new File("recipelist.txt"));
+			sL = new Scanner(new File("shoplist.txt"));
+		}
+		catch (FileNotFoundException e) {
+			
+			System.out.println("Error: File not found");
+		}
+	}
 	/**
 	 * This method prints the availabe recipes
 	 */
-	protected void printRlist() {
-
+	public void printRlist() {
 		//prints all available recipes
-		System.out.println("\nAvailable recipes:");
-		System.out.println();
-		for (int i = 0; i < NUMRECIPES; i++) {
-
-			System.out.println((i + 1) + "." + names[i]);
+		System.out.println("\nAvailable Recipes\n");
+		
+		int i = 1;
+		
+		while (rL.hasNext() == true) {
+			
+			if (rL.next().equals("Recipe")) {
+				
+				System.out.println(i + ": " + rL.nextLine());
+				i++;
+			}
 		}
+		
+		
+	}
+	
+	public void addRecipe() {
+		
+		
 	}
 
 	/**
@@ -45,8 +75,25 @@ public class RecipeManager {
 	 * @param bread : (int) specifies the type of bread wanted
 	 * @param num : (int) the number of breads wanted
 	 */
-	protected void addToShoppingList(int bread, int num) {
+	public void addToShoppingList(int bread, int num) {
 
+		String rName = null;
+		
+		for (int i = 1; i <= bread;) {
+			
+			while (rL.hasNext() == true) {
+				
+				if (rL.next().equals("Recipe")) {
+					
+					rName = rL.nextLine();
+					i++;
+					break;
+				}
+			}
+		}
+		
+		System.out.println(rName);
+		/*
 		//temporary recipe to add to the shopping list
 		Recipe tempRecipe = new Recipe();
 
@@ -90,7 +137,7 @@ public class RecipeManager {
 			recipeList.get(whereInSlist).setEggs(eggs[bread - 1]);
 			recipeList.get(whereInSlist).setButter(butter[bread - 1]);
 		}
-
+*/
 	}
 
 	/**
@@ -98,16 +145,18 @@ public class RecipeManager {
 	 * 
 	 * @return : (int) the number of recipes in the list
 	 */
-	protected int recipeNum() {
+	public int recipeNum() {
 
 		//the size of the shopping list
 		return recipeList.size();
 	}
+	
+	
 
 	/**
 	 * This method prints the shopping list of recipes
 	 */
-	protected void printSlist() {
+	public void printSlist() {
 
 		//size of the shopping list
 		int listSize = recipeNum();

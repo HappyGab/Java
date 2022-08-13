@@ -14,6 +14,8 @@
 
 package lab6;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -36,8 +38,10 @@ public class Lab6 {
 	 * 
 	 * @param args : nothing
 	 */
-	public static void main(String[] args) {
-
+	public static void main(String[] args) {	
+		
+		RecipeManager.readFile();
+		
 		//starts the program
 		Lab6 Lab6 = new Lab6();
 		System.out.println("Welcome to the world's best bread recipe manager.");
@@ -75,14 +79,18 @@ public class Lab6 {
 				rM.printRlist();
 			}
 			else if (playerIn == 2) {
+				//calls the method that add a recipe
+				rM.addRecipe();
+			}
+			else if (playerIn == 3) {
 				//calls the method to create the list
 				Lab6.createSlist();
 			}
-			else if (playerIn == 3) {
+			else if (playerIn == 4) {
 				//calls the method that prints the shopping list
 				rM.printSlist();
 			}
-			else if (playerIn == 4) {
+			else if (playerIn == 5) {
 				//quits the program
 				System.out.println("\nMade by Gabriel Koscielniak");
 				quit = true;
@@ -100,9 +108,10 @@ public class Lab6 {
 		//prints the menu
 		System.out.println("\nSelect one of the following options");
 		System.out.println("1. Show available recipes");
-		System.out.println("2. Create shopping list");
-		System.out.println("3. Print shopping list");
-		System.out.println("4. Quit program");
+		System.out.println("2. Add a new recipe");
+		System.out.println("3. Create shopping list");
+		System.out.println("4. Print shopping list");
+		System.out.println("5. Quit program");
 		System.out.println("0. Reprint the menu");
 		System.out.print("Please enter your choice: ");
 	}
