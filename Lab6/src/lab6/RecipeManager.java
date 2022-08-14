@@ -14,6 +14,8 @@
 package lab6;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,17 +33,25 @@ public class RecipeManager {
 	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		
 	private static Scanner rL;
-	private static Scanner sL;
+	private static FileWriter sLw;
+	private static FileWriter rLw;
 	
+	//method to reset the scanners and file writers
 	public static void readFile() {
 		
 		try {
 			rL = new Scanner(new File("recipelist.txt"));
-			sL = new Scanner(new File("shoplist.txt"));
+			sLw = new FileWriter("shoplist.txt", true);
+			rLw = new FileWriter("recipelist.txt", true);
+			
 		}
 		catch (FileNotFoundException e) {
 			
 			System.out.println("Error: File not found");
+		}
+		catch (IOException e2) {
+			
+			System.out.println("Error: Something went wrong");
 		}
 	}
 	/**
@@ -65,8 +75,36 @@ public class RecipeManager {
 		
 	}
 	
-	public void addRecipe() {
+	/**
+	 * 
+	 * @param name : String for the name
+	 * @param yeast : float for the yeast
+	 * @param flour : float for the flour
+	 * @param sugar : float for the sugar
+	 * @param eggs : float for the eggs
+	 * @param butter : float for the butter
+	 */
+	public void addRecipe(String name, float yeast, float flour, float sugar, float eggs, float butter) {
 		
+		readFile();
+		
+		String newRecipe = "\n";
+		
+		newRecipe = newRecipe + "Recipe " + name;
+		newRecipe = newRecipe + "\nyeast " + yeast; 
+		newRecipe = newRecipe + "\nflour " + flour; 
+		newRecipe = newRecipe + "\nsugar " + sugar; 
+		newRecipe = newRecipe + "\neggs " + eggs; 
+		newRecipe = newRecipe + "\nbutter " + butter; 
+		
+		//adds the new recipe to recipelist.txt
+		try {
+			rLw.write(newRecipe);
+			rLw.close();
+		} 
+		catch (IOException e) {
+			System.out.println("Error: something went wrong");
+		}
 		
 	}
 
@@ -192,6 +230,7 @@ public class RecipeManager {
 			recipeList.get(whereInSlist).setEggs(eggs);
 			recipeList.get(whereInSlist).setButter(butter);
 		}
+		
 	}
 
 	/**
@@ -210,23 +249,26 @@ public class RecipeManager {
 	/**
 	 * This method prints the shopping list of recipes
 	 */
-	public void printSlist() {
+	public String printSlist() {
 
+		String sList = "";
+		
 		//size of the shopping list
 		int listSize = recipeNum();
 
 		System.out.println();
+		sList = sList + "\n";
 
 		//prints the type of bread and their amounts in the list
 		for (int i = 0; i < listSize; i++) {
 
-			System.out.print((i + 1) + ".");
-			System.out.println(recipeList.get(i).getName());
+			sList = sList +(recipeList.get(i).getBreadNum() + ".");
+			sList = sList +(recipeList.get(i).getName() + "\n");
 		}
 
 		//prints the total amount of ingredients needed for all the bread in the shopping list
 		//skips the ingredients ou need none of
-		System.out.println("\nIngredients needed:");
+		sList = sList +("\nIngredients needed:");
 
 		float yeast = 0;
 
@@ -238,7 +280,7 @@ public class RecipeManager {
 		}
 
 		if (yeast > 0) {
-			System.out.println(yeast + " grams of yeast");
+			sList = sList + "\n" + (yeast + " grams of yeast");
 		}
 
 		float flour = 0;
@@ -251,7 +293,7 @@ public class RecipeManager {
 		}
 
 		if (flour > 0) {
-			System.out.println(flour + " grams of flour");
+			sList = sList + "\n" + (flour + " grams of flour");
 		}
 
 		float sugar = 0;
@@ -264,7 +306,7 @@ public class RecipeManager {
 		}
 
 		if (sugar > 0) {
-			System.out.println(sugar + " grams of sugar");
+			sList = sList + "\n" + (sugar + " grams of sugar");
 		}
 
 		float eggs = 0;
@@ -277,7 +319,7 @@ public class RecipeManager {
 		}
 
 		if (eggs > 0) {
-			System.out.println(eggs + " eggs");
+			sList = sList + "\n" + (eggs + " eggs");
 		}
 
 		float butter = 0;
@@ -290,7 +332,26 @@ public class RecipeManager {
 		}
 
 		if (butter > 0) {
-			System.out.println(butter + " grams of butter");
+			sList = sList + "\n" + (butter + " grams of butter");
+		}
+		
+		return sList;
+	}
+	
+	public void saveList(String yn) {
+		
+		if (yn.equals("y")) {
+			
+			try {
+				sLw.write(printSlist());
+				sLw.close();
+			} 
+			catch (IOException e) {
+				System.out.println("Error: something went wrong");
+			}
+		}
+		else {
+			System.out.println("Shopping List changes discarded");
 		}
 	}
 }
