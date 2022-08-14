@@ -77,6 +77,8 @@ public class RecipeManager {
 	 */
 	public void addToShoppingList(int bread, int num) {
 
+		readFile();
+		
 		String rName = null;
 		
 		for (int i = 1; i <= bread;) {
@@ -91,9 +93,7 @@ public class RecipeManager {
 				}
 			}
 		}
-		
-		System.out.println(rName);
-		/*
+				
 		//temporary recipe to add to the shopping list
 		Recipe tempRecipe = new Recipe();
 
@@ -105,39 +105,93 @@ public class RecipeManager {
 		//checks if the bread already is in the shopping list
 		for (int i = 0; i < recipeList.size(); i++) {
 
-			if (recipeList.get(i).getName().equals(names[bread - 1])) {
+			if (recipeList.get(i).getName().equals(rName)) {
 				isInSlist = true;
 				whereInSlist = i;
 			}
 		}
 
+		float yeast = 0;
+		float flour = 0;	
+		float sugar = 0;
+		float eggs = 0;
+		float butter = 0;
+		
 		//if the bread is not in the shopping list
 		if (isInSlist == false) {
 			
 			//creates the right recipe and adds it to the shopping list
-			tempRecipe.setName(names[bread - 1]);
+			tempRecipe.setName(rName);
 			tempRecipe.setBreadNum(num);
 
-			tempRecipe.setYeast(yeast[bread - 1]);
-			tempRecipe.setFlour(flour[bread - 1]);
-			tempRecipe.setSugar(sugar[bread - 1]);
-			tempRecipe.setEggs(eggs[bread - 1]);
-			tempRecipe.setButter(butter[bread - 1]);
+			int i = 1;
+			
+			while(i <= 5) {
+				
+				i++;
+				 
+				String ing = rL.next();
+				
+				if (ing.equals("yeast")) {
+					yeast = rL.nextFloat();
+				}
+				else if (ing.equals("flour")) {
+					flour = rL.nextFloat();
+				}
+				else if (ing.equals("sugar")) {
+					sugar = rL.nextFloat();
+				}
+				else if (ing.equals("eggs")) {
+					eggs = rL.nextFloat();
+				}
+				else if (ing.equals("butter")) {
+					butter = rL.nextFloat();
+				}
 
+			}
+			tempRecipe.setYeast(yeast);
+			tempRecipe.setFlour(flour);
+			tempRecipe.setSugar(sugar);
+			tempRecipe.setEggs(eggs);
+			tempRecipe.setButter(butter);
 			recipeList.add(tempRecipe);
 			
 		//if the bread already is in the shopping list
 		} else {
 
+			int i = 1;
+			
+			while(i <= 5) {
+				
+				i++;
+				
+				String ing = rL.next();
+				
+				if (ing.equals("yeast")) {
+					yeast = rL.nextFloat();
+				}
+				else if (ing.equals("flour")) {
+					flour = rL.nextFloat();
+				}
+				else if (ing.equals("sugar")) {
+					sugar = rL.nextFloat();
+				}
+				else if (ing.equals("eggs")) {
+					eggs = rL.nextFloat();
+				}
+				else if (ing.equals("butter")) {
+					butter = rL.nextFloat();
+				}
+			}
+			
 			//edits the recipe for that bread in the shopping list
 			recipeList.get(whereInSlist).setBreadNum(recipeList.get(whereInSlist).getBreadNum() + num);
-			recipeList.get(whereInSlist).setYeast(yeast[bread - 1]);
-			recipeList.get(whereInSlist).setFlour(flour[bread - 1]);
-			recipeList.get(whereInSlist).setSugar(sugar[bread - 1]);
-			recipeList.get(whereInSlist).setEggs(eggs[bread - 1]);
-			recipeList.get(whereInSlist).setButter(butter[bread - 1]);
+			recipeList.get(whereInSlist).setYeast(yeast);
+			recipeList.get(whereInSlist).setFlour(flour);
+			recipeList.get(whereInSlist).setSugar(sugar);
+			recipeList.get(whereInSlist).setEggs(eggs);
+			recipeList.get(whereInSlist).setButter(butter);
 		}
-*/
 	}
 
 	/**
